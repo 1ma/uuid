@@ -1,0 +1,26 @@
+{
+    "name": "uma/uuid",
+    "description": "Lightweight UUID library",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "UMA\\Uuid\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "UMA\\Uuid\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test" : [
+            "@composer install",
+            "wget -nc -q https://phar.phpunit.de/phpunit-6.3.phar",
+            "php phpunit-6.3.phar"
+        ]
+    }
+}
