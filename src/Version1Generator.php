@@ -71,6 +71,14 @@ class Version1Generator implements UuidGenerator
     /**
      * Returns the number of 100-nanosecond intervals elapsed since the
      * introduction of the Gregorian calendar (1582-10-15 00:00:00 UTC).
+     *
+     * Assuming the code runs on a 64bit build of PHP this method will
+     * break down on 30810-06-28 02:48:05 UTC. On that date PHP_INT_MAX
+     * will be reached.
+     *
+     * Reasoning:
+     *  $maxT = (int)((PHP_INT_MAX - self::GREGORIAN_OFFSET)/10000000);
+     *  var_dump(new \DateTimeImmutable("@$maxT UTC"));
      */
     private function timestamp(): int
     {
