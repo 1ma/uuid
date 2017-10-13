@@ -10,6 +10,11 @@ use UMA\Uuid\Version4Generator;
 
 class UuidTest extends TestCase
 {
+    public function testNilFactory()
+    {
+        self::assertSame(Uuid::NIL, Uuid::nil()->asString());
+    }
+
     public function testAlias()
     {
         $uuid = (new Version4Generator)->generate();

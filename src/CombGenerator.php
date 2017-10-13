@@ -20,7 +20,7 @@ class CombGenerator implements UuidGenerator
     private $v4;
 
     /**
-     * @param int $granularity Accuracy of the timestamps, from second to millisecond precision.
+     * @param int $granularity Precision of the timestamps, ranging from second up to millisecond.
      */
     public function __construct(int $granularity = 6)
     {
@@ -42,10 +42,10 @@ class CombGenerator implements UuidGenerator
 
     /**
      * Returns the exact date on which the 48 most significant bits of
-     * the UUIDs will overflow.
+     * the UUIDs will overflow for the chosen $granularity.
      *
-     * For a higher granularity the output of the generator is better, but
-     * the overflow date looms sooner.
+     * The higher the granularity the better is the output of the
+     * generator, but the overflow date also looms sooner.
      */
     public function getOverflowDate(): \DateTimeImmutable
     {

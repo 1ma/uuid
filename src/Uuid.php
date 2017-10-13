@@ -6,14 +6,16 @@ namespace UMA\Uuid;
 
 /**
  * Value object that encapsulates the 128 bits of an UUID.
- *
- * @example Uuid::isUUid('96aaab69-7b76-4461-b008-cbb9cfcb6fdf');       // bool(true)
- * @example Uuid::fromString('96aaab69-7b76-4461-b008-cbb9cfcb6fdf');   // object(UMA\Uuid\Uuid)
  */
 class Uuid
 {
     /**
-     * The regular expression of what the value object considers to be a valid Uuid in textual form.
+     * The 'Nil' UUID described in section 4.1.7 of RFC 4122.
+     */
+    const NIL = '00000000-0000-0000-0000-000000000000';
+
+    /**
+     * The regular expression of what the value object considers to be a valid UUID in textual form.
      *
      * It does not try to enforce any particular version.
      */
@@ -29,7 +31,7 @@ class Uuid
     private $raw;
 
     /**
-     * Textual Uuid representation of the $raw byte sequence.
+     * Textual UUID representation of the $raw byte sequence.
      *
      * @example '96aaab69-7b76-4461-b008-cbb9cfcb6fdf'
      *
@@ -38,10 +40,12 @@ class Uuid
     private $textual;
 
     /**
-     * Usage of the regular constructor is only allowed inside the own class.
+     * Direct usage of the constructor is only allowed inside the class.
      */
-    private function __construct()
+    private function __construct(string $raw, string $textual)
     {
+        $this->raw = $raw;
+        $this->textual = strtolower($textual);
     }
 
     /**
@@ -53,7 +57,7 @@ class Uuid
     }
 
     /**
-     * Returns the raw 16-byte sequence of the Uuid.
+     * Returns the raw 16-byte sequence of the UUID.
      */
     public function asBytes(): string
     {
@@ -61,7 +65,7 @@ class Uuid
     }
 
     /**
-     * Returns the textual representation of the Uuid.
+     * Returns the textual representation of the UUID.
      */
     public function asString(): string
     {
@@ -72,7 +76,7 @@ class Uuid
      * Factory to create a new Uuid instance from a raw byte sequence.
      *
      * Most of the time this method should be used by UuidGenerator
-     * implementations, not the end user.
+     * implementations, not the end user of the library.
      *
      * @throws \InvalidArgumentException If $bytes is not exactly 16 bytes long.
      */
@@ -82,11 +86,7 @@ class Uuid
             throw new \InvalidArgumentException('Length of $bytes for new Uuid is not 16. Got: 0x' . bin2hex($bytes));
         }
 
-        $uuid = new self;
-        $uuid->raw = $bytes;
-        $uuid->textual = self::bin2str($uuid->raw);
-
-        return $uuid;
+        return new self($bytes, self::bin2str($bytes));
     }
 
     /**
@@ -103,16 +103,19 @@ class Uuid
             throw new \InvalidArgumentException('$text is not a valid Uuid. Got: ' . $text);
         }
 
-        $uuid = new self;
-        $uuid->textual = strtolower($text);
-        $uuid->raw = self::str2bin($uuid->textual);
-
-        return $uuid;
+        return new self(self::str2bin($text), $text);
     }
 
     /**
-     * Helper method to validate if a given string can
-     * be considered a valid Uuid.
+     * Factory to create a new 'Nil' Uuid instance.
+     */
+    public static function nil(): Uuid
+    {
+        return self::fromString(self::NIL);
+    }
+
+    /**
+     * Helper method to validate if a given string can be considered a valid UUID.
      */
     public static function isUuid(string $candidate): bool
     {
@@ -120,7 +123,7 @@ class Uuid
     }
 
     /**
-     * Turns the textual form of an Uuid to its equivalent raw bytes.
+     * Turns the textual form of an UUID to its equivalent raw bytes.
      *
      * Precondition: $uuid is a valid Uuid.
      *
@@ -132,7 +135,7 @@ class Uuid
     }
 
     /**
-     * Turns the 16 raw bytes of an Uuid to its textual form.
+     * Turns the 16 raw bytes of an UUID to its textual form.
      *
      * Precondition: $bytes is exactly 16 bytes long.
      *
