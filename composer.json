@@ -19,8 +19,8 @@
     "scripts": {
         "test" : [
             "@composer install",
-            "wget -nc -q https://phar.phpunit.de/phpunit-6.3.phar",
-            "php phpunit-6.3.phar"
+            "wget -nc -q https://phar.phpunit.de/phpunit-6.4.phar",
+            "php phpunit-6.4.phar"
         ]
     }
 }
