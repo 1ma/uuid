@@ -1,5 +1,7 @@
 /build/
 /composer.lock
+/phpbench.json
+/phpunit.xml
 /vendor/
 
 *.phar

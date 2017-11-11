@@ -1,4 +1,4 @@
-/bin export-ignore
+/benchmarks export-ignore
 /doc export-ignore
 /tests export-ignore
 /.gitattributes export-ignore
@@ -6,6 +6,7 @@
 /.scrutinizer.yml export-ignore
 /.travis.yml export-ignore
 /CHANGELOG.md export-ignore
+/phpbench.json.dist export-ignore
 /phpunit.xml.dist export-ignore
 /README.md export-ignore
 /SPEC.txt export-ignore

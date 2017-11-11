@@ -11,5 +11,8 @@ before_script:
 script:
   - composer test
 
+after_script:
+  - composer bench
+
 notifications:
   email: false

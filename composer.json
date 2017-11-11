@@ -6,6 +6,10 @@
     "require": {
         "php-64bit": ">=7.0"
     },
+    "require-dev": {
+        "phpbench/phpbench": "^0.13",
+        "phpunit/phpunit": "^6.4"
+    },
     "autoload": {
         "psr-4": {
             "UMA\\Uuid\\": "src/"
@@ -14,14 +18,16 @@
     "autoload-dev": {
         "psr-4": {
             "UMA\\Uuid\\Tests\\": "tests/"
-        },
-        "files": ["bin/Benchmarker.php"]
+        }
     },
     "scripts": {
+        "bench": [
+            "@composer install",
+            "php vendor/bin/phpbench run --report=env --report=aggregate"
+        ],
         "test" : [
             "@composer install",
-            "wget -nc -q https://phar.phpunit.de/phpunit-6.4.phar",
-            "php phpunit-6.4.phar"
+            "php vendor/bin/phpunit"
         ]
     }
 }
