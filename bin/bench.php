@@ -11,9 +11,9 @@ use UMA\Uuid\Version5Generator;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-echo sprintf("Running on: %s\n\n", PHP_VERSION);
+echo \sprintf("Running on: %s\n\n", PHP_VERSION);
 
-if (extension_loaded('xdebug')) {
+if (\extension_loaded('xdebug')) {
     echo "[!] The xdebug extension is enabled. This has a major impact on runtime performance.\n\n";
 }
 

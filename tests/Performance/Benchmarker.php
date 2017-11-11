@@ -32,24 +32,24 @@ class Benchmarker
     {
         $count = 0;
         $threshold = $runTime * 1000000;
-        $start = self::currentTimeMillis();
+        $start = self::currentTimeMicros();
 
         do {
             $count++;
             $this->benchmarked->generate('foo');
-        } while (self::currentTimeMillis() - $start < $threshold);
+        } while (self::currentTimeMicros() - $start < $threshold);
 
-        echo sprintf(
+        echo \sprintf(
             "%s: %s UUIDs in %s seconds (%s op/s)\n",
-            get_class($this->benchmarked),
+            \get_class($this->benchmarked),
             $count,
             $runTime,
-            number_format($count/$runTime, 1)
+            \number_format($count/$runTime, 1)
         );
     }
 
-    private static function currentTimeMillis(): int
+    private static function currentTimeMicros(): int
     {
-        return (int)(microtime(true) * 1000000);
+        return (int)(\microtime(true) * 1000000);
     }
 }

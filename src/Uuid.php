@@ -45,7 +45,7 @@ class Uuid
     private function __construct(string $raw, string $textual)
     {
         $this->raw = $raw;
-        $this->textual = strtolower($textual);
+        $this->textual = \strtolower($textual);
     }
 
     /**
@@ -82,8 +82,8 @@ class Uuid
      */
     public static function fromBytes(string $bytes): Uuid
     {
-        if (16 !== strlen($bytes)) {
-            throw new \InvalidArgumentException('Length of $bytes for new Uuid is not 16. Got: 0x' . bin2hex($bytes));
+        if (16 !== \strlen($bytes)) {
+            throw new \InvalidArgumentException('Length of $bytes for new Uuid is not 16. Got: 0x' . \bin2hex($bytes));
         }
 
         return new self($bytes, self::bin2str($bytes));
@@ -119,7 +119,7 @@ class Uuid
      */
     public static function isUuid(string $candidate): bool
     {
-        return 1 === preg_match(self::TEXTUAL_FORMAT, $candidate);
+        return 1 === \preg_match(self::TEXTUAL_FORMAT, $candidate);
     }
 
     /**
@@ -131,7 +131,7 @@ class Uuid
      */
     private static function str2bin(string $uuid): string
     {
-        return pack('H32', str_replace('-', '', $uuid));
+        return \pack('H32', \str_replace('-', '', $uuid));
     }
 
     /**
@@ -143,6 +143,6 @@ class Uuid
      */
     private static function bin2str(string $bytes): string
     {
-        return implode('-', unpack('H8a/H4b/H4c/H4d/H12e', $bytes));
+        return \implode('-', \unpack('H8a/H4b/H4c/H4d/H12e', $bytes));
     }
 }

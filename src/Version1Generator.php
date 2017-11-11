@@ -44,19 +44,19 @@ class Version1Generator implements UuidGenerator
      */
     public function __construct(string $nodeID)
     {
-        if (0 === preg_match(self::MAC_ADDR_FORMAT, $nodeID)) {
+        if (0 === \preg_match(self::MAC_ADDR_FORMAT, $nodeID)) {
             throw new \InvalidArgumentException('$nodeID is not a valid MAC address. Got: ' . $nodeID);
         }
 
-        $this->nodeID = str_replace(':', '', $nodeID);
-        $this->clockSeq = random_int(0, 0x3fff) | 0x8000;
+        $this->nodeID = \str_replace(':', '', $nodeID);
+        $this->clockSeq = \random_int(0, 0x3fff) | 0x8000;
     }
 
     public function generate(string $name = null): Uuid
     {
         $t = $this->timestamp();
 
-        $bytes = pack(
+        $bytes = \pack(
             'NnnnH12',
             $t       & 0xffffffff,
             $t >> 32 & 0xffff,
@@ -82,6 +82,6 @@ class Version1Generator implements UuidGenerator
      */
     private function timestamp(): int
     {
-        return self::GREGORIAN_OFFSET + (int)(10000000 * microtime(true));
+        return self::GREGORIAN_OFFSET + (int)(10000000 * \microtime(true));
     }
 }

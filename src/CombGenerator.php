@@ -20,11 +20,11 @@ class CombGenerator implements UuidGenerator
     private $v4;
 
     /**
-     * @param int $granularity Precision of the timestamps, ranging from second up to millisecond.
+     * @param int $granularity Precision of the timestamps, ranging from second up to microsecond.
      */
     public function __construct(int $granularity = 6)
     {
-        if (!in_array($granularity, range(0, 6), true)) {
+        if (!\in_array($granularity, \range(0, 6), true)) {
             throw new \InvalidArgumentException('$granularity must be in the [0, 6] range. Got: ' . $granularity);
         }
 
@@ -35,7 +35,7 @@ class CombGenerator implements UuidGenerator
     public function generate(string $name = null): Uuid
     {
         $head = $this->procrust($this->timestamp());
-        $tail = substr($this->v4->generate()->asBytes(), -10);
+        $tail = \substr($this->v4->generate()->asBytes(), -10);
 
         return Uuid::fromBytes($head . $tail);
     }
@@ -49,9 +49,9 @@ class CombGenerator implements UuidGenerator
      */
     public function getOverflowDate(): \DateTimeImmutable
     {
-        $fullTimestampLength = strlen($this->timestamp());
+        $fullTimestampLength = \strlen($this->timestamp());
         $choppedDigits = $fullTimestampLength < 12 ? 0 : $fullTimestampLength - 12;
-        $maxTimestamp = (int)(hexdec(str_pad('', 12 + $choppedDigits, 'f'))/$this->exponent);
+        $maxTimestamp = (int)(\hexdec(\str_pad('', 12 + $choppedDigits, 'f'))/$this->exponent);
 
         return new \DateTimeImmutable("@$maxTimestamp UTC");
     }
@@ -75,12 +75,12 @@ class CombGenerator implements UuidGenerator
      */
     private function procrust(string $timestamp): string
     {
-        return pack('H12', str_pad(substr($timestamp, 0, 12), 12, '0', STR_PAD_LEFT));
+        return \pack('H12', \str_pad(\substr($timestamp, 0, 12), 12, '0', STR_PAD_LEFT));
     }
 
     /**
      * Returns the current unix timestamp as a hex-encoded string (that is, each character
-     * encodes 4 bits) with variable precision, ranging from second to millisecond.
+     * encodes 4 bits) with variable precision, ranging from second to microsecond.
      *
      * The length of the string varies depending on the $granularity chosen. This is how
      * the exact same reading from microtime() looks like for all 7 possible granularity
@@ -96,6 +96,6 @@ class CombGenerator implements UuidGenerator
      */
     private function timestamp(): string
     {
-        return dechex((int)(microtime(true) * $this->exponent));
+        return \dechex((int)(\microtime(true) * $this->exponent));
     }
 }
