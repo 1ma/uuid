@@ -4,7 +4,7 @@
 
 A lean and mean RFC 4122 (UUID) implementation for PHP +7.0.
 
-![project overview](https://i.imgur.com/xSQ9w3O.png)
+![project overview](doc/class-diagram.png)
 
 ## Motivation
 ## Caveats
