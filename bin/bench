@@ -1,9 +1,10 @@
+#!/usr/bin/env php
 <?php
 
 declare(strict_types=1);
 
 use UMA\Uuid\CombGenerator;
-use UMA\Uuid\Tests\Performance\Benchmarker;
+use UMA\Uuid\Performance\Benchmarker;
 use UMA\Uuid\Uuid;
 use UMA\Uuid\Version1Generator;
 use UMA\Uuid\Version4Generator;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UMA\Uuid\Tests\Unit;
+namespace UMA\Uuid\Tests;
 
 use PHPUnit\Framework\TestCase;
 use UMA\Uuid\CombGenerator;

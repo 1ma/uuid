@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UMA\Uuid\Tests\Performance;
+namespace UMA\Uuid\Performance;
 
 use UMA\Uuid\UuidGenerator;
 

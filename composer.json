@@ -14,7 +14,8 @@
     "autoload-dev": {
         "psr-4": {
             "UMA\\Uuid\\Tests\\": "tests/"
-        }
+        },
+        "files": ["bin/Benchmarker.php"]
     },
     "scripts": {
         "test" : [
