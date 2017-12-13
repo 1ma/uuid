@@ -6,31 +6,9 @@ namespace UMA\Uuid\Tests;
 
 use PHPUnit\Framework\TestCase;
 use UMA\Uuid\CombGenerator;
-use UMA\Uuid\Uuid;
 
 class CombGeneratorTest extends TestCase
 {
-    public function testIt()
-    {
-        $seen = [];
-        $comb = new CombGenerator;
-
-        for ($i = 0; $i < 1000; $i++) {
-            $str = $comb->generate()->asString();
-
-            self::assertTrue(Uuid::isUuid($str));
-            self::assertSame('4', $str[14], "Uuid version is not the expected '4': $str");
-            self::assertContains($str[19], ['8', '9', 'a', 'b'], "Uuid variant is not the expected '10xx': $str");
-            self::assertNotContains($str, $seen, "OMG FOUND A COLLISION: $str");
-
-            $seen[] = $str;
-
-            self::assertSame($str, max($seen));
-
-            usleep(1);
-        }
-    }
-
     public function testInvalidGranularity()
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -42,11 +20,11 @@ class CombGeneratorTest extends TestCase
     /**
      * @dataProvider overflowDatesProvider
      */
-    public function testOverflowDates(int $granularity, string $correctOfDate)
+    public function testOverflowDates(int $granularity, string $expectedOverflowDate)
     {
-        $ofDate = (new CombGenerator($granularity))->getOverflowDate();
+        $overflowDate = (new CombGenerator($granularity))->getOverflowDate();
 
-        self::assertSame($correctOfDate, $ofDate->format('Y-m-d H:i:s'));
+        self::assertSame($expectedOverflowDate, $overflowDate->format('Y-m-d H:i:s'));
     }
 
     public function overflowDatesProvider(): array

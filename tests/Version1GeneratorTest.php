@@ -10,21 +10,11 @@ use UMA\Uuid\Version1Generator;
 
 class Version1GeneratorTest extends TestCase
 {
-    public function testIt()
+    public function testValidMACAddress()
     {
-        $seen = [];
-        $v1 = new Version1Generator('01:23:45:67:89:ab');
+        $sut = new Version1Generator('01:23:45:67:89:ab');
 
-        for ($i = 0; $i < 1000; $i++) {
-            $str = $v1->generate()->asString();
-
-            self::assertTrue(Uuid::isUuid($str));
-            self::assertSame('1', $str[14], "Uuid version is not the expected '1': $str");
-            self::assertContains($str[19], ['8', '9', 'a', 'b'], "Uuid variant is not the expected '10xx': $str");
-            self::assertNotContains($str, $seen, "OMG FOUND A COLLISION: $str");
-
-            $seen[] = $str;
-        }
+        self::assertTrue(Uuid::isUuid((string) $sut->generate()));
     }
 
     public function testInvalidMACAddress()

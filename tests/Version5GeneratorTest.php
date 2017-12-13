@@ -12,11 +12,13 @@ class Version5GeneratorTest extends TestCase
 {
     public function testIt()
     {
-        $v5 = new Version5Generator(Uuid::fromString(Version5Generator::NS_DNS));
+        $sut = new Version5Generator(Uuid::fromString(Version5Generator::NS_DNS));
+
+        $uuid = $sut->generate('php.net');
 
         self::assertSame(
-            'c4a760a8-dbcf-5254-a0d9-6a4474bd1b62',
-            $v5->generate('php.net')->asString()
+            'c4a760a8-dbcf-5254-a0d9-6a4474bd1b62', (string) $uuid,
+            "\$str is not the expected 'c4a760a8-dbcf-5254-a0d9-6a4474bd1b62'"
         );
     }
 
@@ -25,7 +27,7 @@ class Version5GeneratorTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$name is mandatory. Got: NULL');
 
-        $v5 = new Version5Generator(Uuid::fromString(Version5Generator::NS_DNS));
-        $v5->generate();
+        $sut = new Version5Generator(Uuid::fromString(Version5Generator::NS_DNS));
+        $sut->generate();
     }
 }
