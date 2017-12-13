@@ -12,6 +12,10 @@ namespace UMA\Uuid;
  */
 class Version4Generator implements UuidGenerator
 {
+    /**
+     * @throws \Exception When PHP cannot gather enough entropy to
+     *                    pull 16 random bytes for the next Uuid.
+     */
     public function generate(string $name = null): Uuid
     {
         // Set all the other bits to randomly chosen values.

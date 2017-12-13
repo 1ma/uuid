@@ -21,6 +21,8 @@ class CombGenerator implements UuidGenerator
 
     /**
      * @param int $granularity Precision of the timestamps, ranging from second up to microsecond.
+     *
+     * @throws \InvalidArgumentException When $granularity is outside the [0, 6] range.
      */
     public function __construct(int $granularity = 6)
     {
@@ -32,6 +34,9 @@ class CombGenerator implements UuidGenerator
         $this->v4 = new Version4Generator;
     }
 
+    /**
+     * @throws \Exception If $v4->generate() fails due to exhausted entropy.
+     */
     public function generate(string $name = null): Uuid
     {
         $head = $this->procrust($this->timestamp());

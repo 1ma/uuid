@@ -16,7 +16,12 @@ class Version1Generator implements UuidGenerator
      * This is the number of 100-nanosecond intervals elapsed from
      *  1582-10-15 00:00:00 UTC -- introduction of the Gregorian calendar
      * to
-     *  1970-01-01 00:00:00 UTC -- Unix epoch, used by microtime()
+     *  1970-01-01 00:00:00 UTC -- Unix epoch, reference point of PHP
+     *
+     * Check:
+     *   $g = new \DateTimeImmutable('1582-10-15 00:00:00 UTC');
+     *   var_dump($g->getTimestamp());
+     *   var_dump($g->getTimestamp() * -10000000);
      */
     const GREGORIAN_OFFSET = 122192928000000000;
 
@@ -40,7 +45,9 @@ class Version1Generator implements UuidGenerator
     /**
      * @param string $nodeID A valid MAC address.
      *
-     * @throws \InvalidArgumentException
+     * @throws \InvalidArgumentException When $nodeID is not a MAC address.
+     * @throws \Exception                When PHP cannot gather enough entropy
+     *                                   to generate a random clockSeq.
      */
     public function __construct(string $nodeID)
     {
@@ -72,11 +79,11 @@ class Version1Generator implements UuidGenerator
      * Returns the number of 100-nanosecond intervals elapsed since the
      * introduction of the Gregorian calendar (1582-10-15 00:00:00 UTC).
      *
-     * Assuming the code runs on a 64bit build of PHP this method will
-     * break down on 30810-06-28 02:48:05 UTC. On that date PHP_INT_MAX
+     * Assuming the code runs on a 64bit build of PHP this method will not
+     * break down until 30810-06-28 02:48:05 UTC. On that date PHP_INT_MAX
      * will be reached.
      *
-     * Reasoning:
+     * Check:
      *  $maxT = (int)((PHP_INT_MAX - self::GREGORIAN_OFFSET)/10000000);
      *  var_dump(new \DateTimeImmutable("@$maxT UTC"));
      */

@@ -53,11 +53,12 @@ class CombGeneratorTest extends TestCase
     {
         // Yes, 5 overflows sooner than 6 because 6 already overflowed over 48-bits
         // in the past (on 1978-12-02 19:29:36 UTC) and 5 still hasn't overflowed
-        // as of 2017. Look up the last two examples of the procrust() method.
+        // yet as of 2017. Look up the examples of the procrust() method on the
+        // CombGenerator class to see how it happens.
 
         // These test cases will start breaking once their dates are reached but
-        // I'll be mush by then, and I don't care. The new dates returned by the
-        // getOverflowDate() method will still be correct, though.
+        // I hope PHP is not even used anymore by 2059. The new dates returned by
+        // the getOverflowDate() method will still be correct, though.
 
         return [
             [0, '8921556-12-07 10:44:15'],
