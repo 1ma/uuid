@@ -7,8 +7,8 @@
         "php-64bit": ">=7.0"
     },
     "require-dev": {
-        "phpbench/phpbench": "^0.13",
-        "phpunit/phpunit": "^6.4"
+        "phpbench/phpbench": "^0.14",
+        "phpunit/phpunit": "^6.0"
     },
     "autoload": {
         "psr-4": {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use UMA\Uuid\Uuid;
 use UMA\Uuid\CombGenerator;
 use UMA\Uuid\Version1Generator;
