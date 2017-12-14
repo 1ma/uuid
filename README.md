@@ -89,7 +89,7 @@ $comb = new \UMA\Uuid\CombGenerator();
 // 55fef06f-9396-4904-a606-c9b62c8e7aea
 ```
 
-#### What is the $granularity argument from the constructor?
+#### What is the optional $granularity argument from the constructor?
 
 The granularity reflects the precision of the timestamp that will be
 stamped onto the UUIDs, and is in fact the number of fractional digits
@@ -110,21 +110,44 @@ can generate over 100k COMB UUIDs in the same second, but only 1 or 2 in the sam
 
 #### What will happen when the higher 48 bits reach `ffffffff-ffff`?
 
-The generator will overflow and start again from `00000000-0000`. Of course, that means
+The generator will overflow and start again from `10000000-0000`. Of course, that means
 that at this point the monotonic property of the generator will be lost!
 
 #### When will the overflow occur?
 
-It depends on the granularity that you have chosen, but the `getOverflowDate()` will return
-the exact moment it occurs.
+It depends on the granularity that you have chosen, but the `getOverflowDate()` method returns
+the exact moment it will occur.
 
 As I write this, the nearest overflow will occur on 2059-03-13 02:56:07 UTC (for a
 granularity of 5).
 
+```php
+$g6 = new \UMA\Uuid\CombGenerator(6);
+$g6->getOverflowDate();
+// object(DateTimeImmutable)#4 (3) {
+//   ["date"]=>
+//   string(26) "2112-09-17 23:53:47.000000"
+//   ["timezone_type"]=>
+//   int(1)
+//   ["timezone"]=>
+//   string(6) "+00:00"
+// }
+
+$g0 = new \UMA\Uuid\CombGenerator(0);
+$g0->getOverflowDate();
+// object(DateTimeImmutable)#6 (3) {
+//   ["date"]=>
+//   string(29) "8921556-12-07 10:44:15.000000"
+//   ["timezone_type"]=>
+//   int(1)
+//   ["timezone"]=>
+//   string(6) "+00:00"
+// }
+```
 
 ## The Uuid class
 
-The Uuid class is modeled as a [value object] that wraps valid UUID strings. It also has
+The `Uuid` class is modeled as a [value object] that wraps valid UUID strings. It also has
 named constructors to generate Uuid objects when their intended value is known beforehand.
 
 ### Creating Uuid objects from strings
@@ -132,7 +155,7 @@ named constructors to generate Uuid objects when their intended value is known b
 #### `Uuid::fromString(string): Uuid`
 
 This is the preferred way to create new instances when you have
-an UUID value in a string variable.
+an UUID value in a string variable. The method is case insensitive.
 
 ```php
 // Creates a new Uuid object from a hardcoded string
@@ -166,6 +189,25 @@ $uuid = \UMA\Uuid::fromBytes(random_bytes(16));
 
 Convenience helper for generating instances of the NIL UUID.
 
+### Retrieving the inner value of an Uuid object
+
+`Uuid` objects have two getters: `asString()` and `asBytes()`. The former returns the UUID
+in its canonical textual format, the latter as a raw sequence of 16 bytes.
+
+They can also be casted to string. This is equivalent to calling the `asString()` method.
+
+```php
+$uuid = (new \UMA\Uuid\CombGenerator)->generate();
+
+$uuid->asBytes();
+// ??????M???D????d
+
+$uuid->asString();
+// 5608bfbf-4602-4abb-9aa1-7584ab428631
+
+(string) $uuid === $uuid->asString();
+// true
+```
 
 ## FAQ
 
@@ -186,6 +228,15 @@ In summary, you should use COMB UUIDs unless you have specific reasons to use an
 
 Since it is exactly the same as Version 5 but relies on an
 even weaker hashing algorithm I do not see the point of adding it.
+
+### Why does `1ma/uuid` specifically require a 64 bit build of PHP?
+
+Because a few sections of the `Version1Generator` and `CombGenerator` code rely on integers
+being 64 bit wide (in particular, the result of casting the output of `microtime(true)` to an integer
+may fill up to 56 bits at the time of writing).
+
+If your PHP binary was built for a 32 bit architecture but don't intend to use neither of these time-based generators
+you can still use this library, but will need to install it passing the `--ignore-platform-reqs` flag to composer.
 
 ### Can I write my own generators?
 
@@ -219,11 +270,15 @@ class DeterministicGenerator implements UuidGenerator
 
 ### How do I run the tests?
 
-`composer test`
+```bash
+$ composer test
+```
 
 ### How do I run the benchmarks?
 
-`composer bench`
+```bash
+$ composer bench
+```
 
 As it is always the case in PHP, if the `xdebug` extension is enabled it will
 have a huge impact on runtime performance that will skew the results.

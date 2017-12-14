@@ -28,7 +28,7 @@ class UuidGeneratorTest extends TestCase
             $str = $sut->generate()->asString();
 
             self::assertTrue(Uuid::isUuid($str));
-            self::assertSame((string) $version, $str[14], "Uuid version is not the expected '1': $str");
+            self::assertSame((string) $version, $str[14], "Uuid version is not the expected '$version': $str");
             self::assertContains($str[19], ['8', '9', 'a', 'b'], "Uuid variant is not the expected '10xx': $str");
             self::assertArrayNotHasKey($str, $seen, "OMG FOUND A COLLISION: $str");
 
