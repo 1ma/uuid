@@ -6,6 +6,11 @@ A SOLID and lightweight implementation of the UUID spec for PHP +7.0.
 
 ![project overview](doc/class-diagram.png)
 
+## Installation
+
+```bash
+$ composer require uma/uuid
+```
 
 ## Generators
 
@@ -47,7 +52,7 @@ $v4 = new \UMA\Uuid\Version4Generator();
 // d4d33558-4a48-469e-8456-a46c4c895aac
 ```
 
-### RFC 4122 Version 5 Generator
+### RFC 4122 Version 5
 
 ```php
 $ns = \UMA\Uuid\Uuid::fromString(\UMA\Uuid\Version5Generator::NS_DNS);
@@ -64,12 +69,12 @@ $v5 = new \UMA\Uuid\Version5Generator($ns);
 
 This generator is not part of the RFC 4122 spec. It is a variant of
 the version 4 UUID that was first described (AFAIK) by Jimmy Nilsson
-on 2002 in an article named [The Cost of GUIDs as Primary Keys].
+in 2002 on an article named [The Cost of GUIDs as Primary Keys].
 
 COMB UUIDs are just version 4 UUIDs whose 48 higher bits have been
-overwritten with a timestamp. This guarantees to a certain extend that
+overwritten with a timestamp. This guarantees to a certain extent that
 the generated values are monotonic (ever increasing), which is a most desired
-property when such values are used as database primary keys, or just indexed.
+property when such values are used as database primary keys, or simply indexed.
 
 ```php
 $comb = new \UMA\Uuid\CombGenerator();
@@ -127,7 +132,7 @@ named constructors to generate Uuid objects when their intended value is known b
 #### `Uuid::fromString(string): Uuid`
 
 This is the preferred way to create new instances when you have
-an Uuid value in a string variable.
+an UUID value in a string variable.
 
 ```php
 // Creates a new Uuid object from a hardcoded string
@@ -147,7 +152,7 @@ if (false === \UMA\Uuid::isUuid($unsafeUuid)) {
 $safeUuid = \UMA\Uuid::fromString($unsafeUuid);
 ```
 
-#### `Uuid::fromBytes(string): UUid`
+#### `Uuid::fromBytes(string): Uuid`
 
 Creates a new Uuid instance from 16 raw bytes. This factory is extensively used
 by the generators but it can also cover some use cases of the end user of this
@@ -157,7 +162,7 @@ library, such as when retrieving UUID strings in packed form from a database.
 $uuid = \UMA\Uuid::fromBytes(random_bytes(16));
 ```
 
-#### `Uuid::nil(): UUid`
+#### `Uuid::nil(): Uuid`
 
 Convenience helper for generating instances of the NIL UUID.
 
