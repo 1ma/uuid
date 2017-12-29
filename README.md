@@ -74,7 +74,7 @@ in 2002 on an article named [The Cost of GUIDs as Primary Keys].
 COMB UUIDs are just version 4 UUIDs whose 48 higher bits have been
 overwritten with a timestamp. This guarantees to a certain extent that
 the generated values are monotonic (ever increasing), which is a most desired
-property when such values are used as database primary keys, or simply indexed.
+property when such values are used as database primary keys (or simply indexed).
 
 ```php
 $comb = new \UMA\Uuid\CombGenerator();
@@ -213,14 +213,14 @@ $uuid->asString();
 
 ### Which is the 'best' kind of UUID/Which one should I use?
 
-UUIDs are often used as surrogate ids for tables in relational databases. This implies
+UUIDs are often used as surrogate keys for tables in relational databases. This implies
 that they are indexed, and index performance depends in part on how continuous
 these values are. Hence, the 'best' kind of UUID is the COMB UUID.
 
 I ran [a benchmark] on Postgres 9.6 in which I measured the time it took to insert a hundred million
 pregenerated UUIDs of different kinds. Version 4 UUIDs were inserted about 32 times slower into
-the table than a conventional autoincrement integer. In contrast COMB UUIDs were "just" about 40% slower.
-These results are very similar to the ones reported 15 years ago by Mr. Nilsson in his own article.
+the table than a conventional autoincrementing integer. In contrast COMB UUIDs were "just" about 40% slower.
+These results are consistent with the ones reported 15 years ago by Mr. Nilsson in his own article.
 
 In summary, you should use COMB UUIDs unless you have specific reasons to use another kind of UUID.
 
@@ -241,7 +241,7 @@ you can still use this library, but will need to install it passing the `--ignor
 ### Can I write my own generators?
 
 Yes, just implement the `UuidGenerator` interface. Here's a sample
-implementation that always returns the same Uuid. This could be useful
+implementation that always returns the same Uuid. This one could be useful
 in a unit testing context.
 
 ```php
@@ -265,7 +265,6 @@ class DeterministicGenerator implements UuidGenerator
         return clone $this->uuid;
     }
 }
-
 ```
 
 ### How do I run the tests?
