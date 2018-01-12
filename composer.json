@@ -21,13 +21,7 @@
         }
     },
     "scripts": {
-        "bench": [
-            "@composer install",
-            "php vendor/bin/phpbench run --report=env --report=aggregate"
-        ],
-        "test" : [
-            "@composer install",
-            "php vendor/bin/phpunit"
-        ]
+        "bench": "php vendor/bin/phpbench run --report=env --report=aggregate",
+        "test" : "php vendor/bin/phpunit"
     }
 }
