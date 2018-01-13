@@ -76,9 +76,7 @@ class CustomCombGenerator implements UuidGenerator
      */
     public function getOverflowDate(): \DateTimeImmutable
     {
-        $fullTimestampLength = \strlen($this->timestamp());
-        $choppedDigits = $fullTimestampLength < $this->span ? 0 : $fullTimestampLength - $this->span;
-        $maxTimestamp = (int)(\hexdec(\str_pad('', $this->span + $choppedDigits, 'f'))/$this->exponent);
+        $maxTimestamp = (int)(($this->maxTimestamp() - $this->epoch)/$this->exponent);
 
         return new \DateTimeImmutable("@$maxTimestamp UTC");
     }
@@ -124,5 +122,10 @@ class CustomCombGenerator implements UuidGenerator
     private function timestamp(): string
     {
         return \dechex((int)(\microtime(true) * $this->exponent) - $this->epoch);
+    }
+
+    private function maxTimestamp(): int
+    {
+        return \hexdec(\str_repeat('f', \max($this->span, \strlen($this->timestamp()))));
     }
 }
