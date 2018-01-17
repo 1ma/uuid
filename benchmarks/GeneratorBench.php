@@ -8,10 +8,6 @@ use UMA\Uuid\Version1Generator;
 use UMA\Uuid\Version4Generator;
 use UMA\Uuid\Version5Generator;
 
-/**
- * @Revs(100000)
- * @Iterations(10)
- */
 class GeneratorBench
 {
     /**

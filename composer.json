@@ -21,7 +21,7 @@
         }
     },
     "scripts": {
-        "bench": "php vendor/bin/phpbench run --report=env --report=aggregate",
+        "bench": "php vendor/bin/phpbench run --iterations=10 --revs=100000 --report=env --report=aggregate",
         "test" : "php vendor/bin/phpunit -dzend.assertions=1 -dassert.exception=1"
     }
 }
