@@ -117,24 +117,24 @@ class Uuid
     /**
      * Turns the textual form of an UUID to its equivalent raw bytes.
      *
-     * Precondition: $uuid is a valid Uuid.
-     *
      * @example '96aaab69-7b76-4461-b008-cbb9cfcb6fdf' => 0x96aaab697b764461b008cbb9cfcb6fdf
      */
     private static function str2bin(string $uuid): string
     {
+        \assert(self::isUuid($uuid));
+
         return \pack('H32', \str_replace('-', '', $uuid));
     }
 
     /**
      * Turns the 16 raw bytes of an UUID to its textual form.
      *
-     * Precondition: $bytes is exactly 16 bytes long.
-     *
      * @example 0x96aaab697b764461b008cbb9cfcb6fdf => '96aaab69-7b76-4461-b008-cbb9cfcb6fdf'
      */
     private static function bin2str(string $bytes): string
     {
+        \assert(16 === \strlen($bytes));
+
         return \implode('-', \unpack('H8a/H4b/H4c/H4d/H12e', $bytes));
     }
 }
