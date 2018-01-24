@@ -145,6 +145,40 @@ $g0->getOverflowDate();
 // }
 ```
 
+### Sequential Generator (UNSAFE)
+
+The `SequentialGenerator` does not generate unique UUIDs at all. It can be used
+as a replacement for real generators in testing contexts, where readable and
+deterministic values might be desirable.
+
+The first parameter of the generator will print a "pattern" on the higher 8 bytes of
+its UUIDs. The second is the offset at which the counting will begin. Both are optional.
+
+```php
+$vanilla = new \UMA\Uuid\SequentialGenerator();
+
+(string) $vanilla->generate();
+// 00000000-0000-0000-0000-000000000000
+
+(string) $vanilla->generate();
+// 00000000-0000-0000-0000-000000000001
+
+(string) $vanilla->generate();
+// 00000000-0000-0000-0000-000000000002
+
+
+$custom = new \UMA\Uuid\SequentialGenerator(dechex('abcd'), 255);
+
+(string) $custom->generate();
+// 00000000-0000-abcd-0000-0000000000ff
+
+(string) $custom->generate();
+// 00000000-0000-abcd-0000-000000000100
+
+(string) $custom->generate();
+// 00000000-0000-abcd-0000-000000000101
+```
+
 ## The Uuid class
 
 The `Uuid` class is modeled as a [value object] that wraps valid UUID strings. It also has
@@ -228,6 +262,11 @@ In summary, you should use COMB UUIDs unless you have specific reasons to use an
 
 Since it is exactly the same as Version 5 but relies on an
 even weaker hashing algorithm I do not see the point of adding it.
+
+### Where is Version2Generator?
+
+As far as I know Version 2 UUIDs were never defined. The [spec](doc/SPEC.txt) does not even
+mention them. Go figure.
 
 ### Why does `1ma/uuid` specifically require a 64 bit build of PHP?
 
