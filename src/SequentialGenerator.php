@@ -22,7 +22,7 @@ class SequentialGenerator implements UuidGenerator
     private $counter;
 
     /**
-     * @var int
+     * @var string
      */
     private $head;
 
