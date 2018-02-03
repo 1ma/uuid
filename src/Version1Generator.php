@@ -38,11 +38,6 @@ class Version1Generator implements UuidGenerator
     private $nodeID;
 
     /**
-     * @var int
-     */
-    private $clockSeq;
-
-    /**
      * @param string $nodeID A valid MAC address.
      *
      * @throws \InvalidArgumentException When $nodeID is not a MAC address.
@@ -56,7 +51,6 @@ class Version1Generator implements UuidGenerator
         }
 
         $this->nodeID = \str_replace(':', '', $nodeID);
-        $this->clockSeq = \random_int(0, 0x3fff) | 0x8000;
     }
 
     public function generate(string $name = null): Uuid
@@ -68,7 +62,7 @@ class Version1Generator implements UuidGenerator
             $t       & 0xffffffff,
             $t >> 32 & 0xffff,
             $t >> 48 & 0x0fff | 0x1000,
-            $this->clockSeq,
+            \random_int(0, 0x3fff) | 0x8000,
             $this->nodeID
         );
 
