@@ -3,12 +3,14 @@
     "description": "Lightweight UUID library",
     "type": "library",
     "license": "MIT",
+    "minimum-stability": "alpha",
+    "prefer-stable": true,
     "require": {
-        "php-64bit": ">=7.0"
+        "php-64bit": "^7.3.0 || ^7.4.0 || ^8.0.0"
     },
     "require-dev": {
-        "phpbench/phpbench": "^0.14",
-        "phpunit/phpunit": "^6.0"
+        "phpbench/phpbench": "^1.0@alpha",
+        "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
@@ -29,5 +31,8 @@
             "@composer install",
             "php vendor/bin/phpunit"
         ]
+    },
+    "config": {
+        "sort-packages": true
     }
 }

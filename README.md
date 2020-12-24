@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/1ma/uuid.svg?branch=master)](https://travis-ci.org/1ma/uuid) [![Code Coverage](https://scrutinizer-ci.com/g/1ma/uuid/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/1ma/uuid/?branch=master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/1ma/uuid/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/1ma/uuid/?branch=master)
 
-A SOLID and lightweight implementation of the UUID spec for PHP +7.0.
+A SOLID and lightweight implementation of the UUID spec for PHP +7.3
 
 ![project overview](doc/class-diagram.png)
 
