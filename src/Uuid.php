@@ -29,15 +29,15 @@ final readonly class Uuid
     private string $uuid;
 
     /**
-     * @throws \InvalidArgumentException If $text is not a valid Uuid in string format.
+     * @throws \InvalidArgumentException if $text is not a valid Uuid in string format
      */
     private function __construct(string $text)
     {
         if (false === self::isUuid($text)) {
-            throw new \InvalidArgumentException('$text is not a valid Uuid. Got: ' . $text);
+            throw new \InvalidArgumentException('$text is not a valid Uuid. Got: '.$text);
         }
 
-        $this->uuid = \strtolower($text);
+        $this->uuid = strtolower($text);
     }
 
     /**
@@ -46,9 +46,9 @@ final readonly class Uuid
      * As opposed to the fromBytes() method, this one is meant to
      * be used by the end user of the library.
      *
-     * @throws \InvalidArgumentException If $text is not a valid Uuid in string format.
+     * @throws \InvalidArgumentException if $text is not a valid Uuid in string format
      */
-    public static function fromString(string $text): Uuid
+    public static function fromString(string $text): self
     {
         return new self($text);
     }
@@ -59,12 +59,12 @@ final readonly class Uuid
      * Most of the time this method should be used by UuidGenerator
      * implementations, not the end user of the library.
      *
-     * @throws \InvalidArgumentException If $bytes is not exactly 16 bytes long.
+     * @throws \InvalidArgumentException if $bytes is not exactly 16 bytes long
      */
-    public static function fromBytes(string $bytes): Uuid
+    public static function fromBytes(string $bytes): self
     {
         if (16 !== \strlen($bytes)) {
-            throw new \InvalidArgumentException('Length of $bytes for new Uuid is not 16. Got: 0x' . \bin2hex($bytes));
+            throw new \InvalidArgumentException('Length of $bytes for new Uuid is not 16. Got: 0x'.bin2hex($bytes));
         }
 
         return new self(self::bin2str($bytes));
@@ -75,7 +75,7 @@ final readonly class Uuid
      *
      * @throws \InvalidArgumentException
      */
-    public static function nil(): Uuid
+    public static function nil(): self
     {
         return new self(self::NIL);
     }
@@ -109,7 +109,7 @@ final readonly class Uuid
      */
     public static function isUuid(string $candidate): bool
     {
-        return 1 === \preg_match(self::TEXTUAL_FORMAT, $candidate);
+        return 1 === preg_match(self::TEXTUAL_FORMAT, $candidate);
     }
 
     /**
@@ -121,7 +121,7 @@ final readonly class Uuid
      */
     private static function str2bin(string $uuid): string
     {
-        return \pack('H32', \str_replace('-', '', $uuid));
+        return pack('H32', str_replace('-', '', $uuid));
     }
 
     /**
@@ -133,6 +133,6 @@ final readonly class Uuid
      */
     private static function bin2str(string $bytes): string
     {
-        return \implode('-', \unpack('H8a/H4b/H4c/H4d/H12e', $bytes));
+        return implode('-', unpack('H8a/H4b/H4c/H4d/H12e', $bytes));
     }
 }

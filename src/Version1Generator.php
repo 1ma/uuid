@@ -16,7 +16,7 @@ final readonly class Version1Generator implements UuidGenerator
      * This is the number of 100-nanosecond intervals elapsed from
      *  1582-10-15 00:00:00 UTC -- introduction of the Gregorian calendar
      * to
-     *  1970-01-01 00:00:00 UTC -- Unix epoch, reference point of PHP
+     *  1970-01-01 00:00:00 UTC -- Unix epoch, reference point of PHP.
      *
      * Check:
      *   $g = new \DateTimeImmutable('1582-10-15 00:00:00 UTC');
@@ -35,31 +35,31 @@ final readonly class Version1Generator implements UuidGenerator
     private string $nodeID;
 
     /**
-     * @param string $nodeID A valid MAC address.
+     * @param string $nodeID a valid MAC address
      *
-     * @throws \InvalidArgumentException When $nodeID is not a MAC address.
-     * @throws \Exception                When PHP cannot gather enough entropy
-     *                                   to generate a random clockSeq.
+     * @throws \InvalidArgumentException when $nodeID is not a MAC address
+     * @throws \Exception                when PHP cannot gather enough entropy
+     *                                   to generate a random clockSeq
      */
     public function __construct(string $nodeID)
     {
-        if (0 === \preg_match(self::MAC_ADDR_FORMAT, $nodeID)) {
-            throw new \InvalidArgumentException('$nodeID is not a valid MAC address. Got: ' . $nodeID);
+        if (0 === preg_match(self::MAC_ADDR_FORMAT, $nodeID)) {
+            throw new \InvalidArgumentException('$nodeID is not a valid MAC address. Got: '.$nodeID);
         }
 
-        $this->nodeID = \str_replace(':', '', $nodeID);
+        $this->nodeID = str_replace(':', '', $nodeID);
     }
 
     public function generate(string $name = null): Uuid
     {
         $t = self::timestamp();
 
-        $bytes = \pack(
+        $bytes = pack(
             'NnnnH12',
-            $t       & 0xffffffff,
-            $t >> 32 & 0xffff,
-            $t >> 48 & 0x0fff | 0x1000,
-            \random_int(0, 0x3fff) | 0x8000,
+            $t & 0xFFFFFFFF,
+            $t >> 32 & 0xFFFF,
+            $t >> 48 & 0x0FFF | 0x1000,
+            random_int(0, 0x3FFF) | 0x8000,
             $this->nodeID
         );
 
@@ -80,6 +80,6 @@ final readonly class Version1Generator implements UuidGenerator
      */
     private static function timestamp(): int
     {
-        return self::GREGORIAN_OFFSET + (int)(10000000 * \microtime(true));
+        return self::GREGORIAN_OFFSET + (int) (10000000 * microtime(true));
     }
 }

@@ -28,15 +28,12 @@ final class SequentialGenerator implements UuidGenerator
      */
     public function __construct(int $mark = 0, int $start = 0)
     {
-        $this->head = \pack('J', $mark);
+        $this->head = pack('J', $mark);
         $this->counter = $start;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function generate(string $name = null): Uuid
     {
-        return Uuid::fromBytes($this->head . \pack('J', $this->counter++));
+        return Uuid::fromBytes($this->head.pack('J', $this->counter++));
     }
 }

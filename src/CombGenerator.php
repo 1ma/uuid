@@ -13,29 +13,29 @@ final readonly class CombGenerator implements UuidGenerator
     private Version4Generator $v4;
 
     /**
-     * @param int $granularity Precision of the timestamps, ranging from second up to microsecond.
+     * @param int $granularity precision of the timestamps, ranging from second up to microsecond
      *
-     * @throws \InvalidArgumentException When $granularity is outside the [0, 6] range.
+     * @throws \InvalidArgumentException when $granularity is outside the [0, 6] range
      */
     public function __construct(int $granularity = 6)
     {
-        if (!\in_array($granularity, \range(0, 6), true)) {
-            throw new \InvalidArgumentException('$granularity must be in the [0, 6] range. Got: ' . $granularity);
+        if (!\in_array($granularity, range(0, 6), true)) {
+            throw new \InvalidArgumentException('$granularity must be in the [0, 6] range. Got: '.$granularity);
         }
 
         $this->exponent = 10 ** $granularity;
-        $this->v4 = new Version4Generator;
+        $this->v4 = new Version4Generator();
     }
 
     /**
-     * @throws \Exception If $v4->generate() fails due to exhausted entropy.
+     * @throws \Exception if $v4->generate() fails due to exhausted entropy
      */
     public function generate(string $name = null): Uuid
     {
         $head = self::procrust($this->timestamp());
-        $tail = \substr($this->v4->generate()->asBytes(), -10);
+        $tail = substr($this->v4->generate()->asBytes(), -10);
 
-        return Uuid::fromBytes($head . $tail);
+        return Uuid::fromBytes($head.$tail);
     }
 
     /**
@@ -49,7 +49,7 @@ final readonly class CombGenerator implements UuidGenerator
     {
         $fullTimestampLength = \strlen($this->timestamp());
         $choppedDigits = $fullTimestampLength < 12 ? 0 : $fullTimestampLength - 12;
-        $maxTimestamp = (int)(\hexdec(\str_pad('', 12 + $choppedDigits, 'f'))/$this->exponent);
+        $maxTimestamp = (int) (hexdec(str_pad('', 12 + $choppedDigits, 'f')) / $this->exponent);
 
         return new \DateTimeImmutable("@$maxTimestamp UTC");
     }
@@ -72,7 +72,7 @@ final readonly class CombGenerator implements UuidGenerator
      */
     private function timestamp(): string
     {
-        return \dechex((int)(\microtime(true) * $this->exponent));
+        return dechex((int) (microtime(true) * $this->exponent));
     }
 
     /**
@@ -94,6 +94,6 @@ final readonly class CombGenerator implements UuidGenerator
      */
     private static function procrust(string $timestamp): string
     {
-        return \pack('H12', \str_pad(\substr($timestamp, 0, 12), 12, '0', STR_PAD_LEFT));
+        return pack('H12', str_pad(substr($timestamp, 0, 12), 12, '0', \STR_PAD_LEFT));
     }
 }
