@@ -10,19 +10,19 @@ use UMA\Uuid\Version4Generator;
 
 class UuidTest extends TestCase
 {
-    public function testNilFactory()
+    public function testNilFactory(): void
     {
         self::assertSame(Uuid::NIL, Uuid::nil()->asString());
     }
 
-    public function testAlias()
+    public function testAlias(): void
     {
         $uuid = (new Version4Generator)->generate();
 
         self::assertSame($uuid->asString(), (string) $uuid);
     }
 
-    public function testEquivalence()
+    public function testEquivalence(): void
     {
         $uuid1 = (new Version4Generator)->generate();
         $uuid2 = Uuid::fromString($uuid1->asString());
@@ -30,7 +30,7 @@ class UuidTest extends TestCase
         self::assertEquals($uuid1, $uuid2);
     }
 
-    public function testCaseInsensitivity()
+    public function testCaseInsensitivity(): void
     {
         $uuid1 = Uuid::fromString('00112233-4455-6677-8899-aabbccddeeff');
         $uuid2 = Uuid::fromString('00112233-4455-6677-8899-AABBCCDDEEFF');
@@ -38,7 +38,7 @@ class UuidTest extends TestCase
         self::assertEquals($uuid1, $uuid2);
     }
 
-    public function testInvalidBytesInput()
+    public function testInvalidBytesInput(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Length of $bytes for new Uuid is not 16. Got: 0x61626364');
@@ -46,7 +46,7 @@ class UuidTest extends TestCase
         Uuid::fromBytes('abcd');
     }
 
-    public function testInvalidTextInput()
+    public function testInvalidTextInput(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$text is not a valid Uuid. Got: a-b-cd-');

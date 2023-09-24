@@ -10,7 +10,7 @@ use UMA\Uuid\Version5Generator;
 
 class Version5GeneratorTest extends TestCase
 {
-    public function testIt()
+    public function testIt(): void
     {
         $sut = new Version5Generator(Uuid::fromString(Version5Generator::NS_DNS));
 
@@ -22,7 +22,7 @@ class Version5GeneratorTest extends TestCase
         );
     }
 
-    public function testMissingName()
+    public function testMissingName(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$name is mandatory. Got: NULL');
