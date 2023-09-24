@@ -9,7 +9,7 @@ use UMA\Uuid\SequentialGenerator;
 
 class SequentialGeneratorTest extends TestCase
 {
-    public function testVanillaUsage()
+    public function testVanillaUsage(): void
     {
         $sut = new SequentialGenerator();
 
@@ -19,7 +19,7 @@ class SequentialGeneratorTest extends TestCase
         self::assertSame('00000000-0000-0000-0000-000000000003', (string) $sut->generate());
     }
 
-    public function testCustomMarksAndStarts()
+    public function testCustomMarksAndStarts(): void
     {
         $sut = new SequentialGenerator(15);
 
@@ -43,7 +43,7 @@ class SequentialGeneratorTest extends TestCase
         self::assertSame('00000000-0000-000a-0000-00000000000d', (string) $sut->generate());
     }
 
-    public function testOverflows()
+    public function testOverflows(): void
     {
         $sut = new SequentialGenerator(0, PHP_INT_MAX);
 

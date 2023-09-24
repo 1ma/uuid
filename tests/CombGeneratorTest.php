@@ -9,7 +9,7 @@ use UMA\Uuid\CombGenerator;
 
 class CombGeneratorTest extends TestCase
 {
-    public function testInvalidGranularity()
+    public function testInvalidGranularity(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('$granularity must be in the [0, 6] range. Got: 10');
@@ -20,14 +20,14 @@ class CombGeneratorTest extends TestCase
     /**
      * @dataProvider overflowDatesProvider
      */
-    public function testOverflowDates(int $granularity, string $expectedOverflowDate)
+    public function testOverflowDates(int $granularity, string $expectedOverflowDate): void
     {
         $overflowDate = (new CombGenerator($granularity))->getOverflowDate();
 
         self::assertSame($expectedOverflowDate, $overflowDate->format('Y-m-d H:i:s'));
     }
 
-    public function overflowDatesProvider(): array
+    public static function overflowDatesProvider(): array
     {
         // Yes, 5 overflows sooner than 6 because 6 already overflowed over 48-bits
         // in the past (on 1978-12-02 19:29:36 UTC) and 5 still hasn't overflowed
