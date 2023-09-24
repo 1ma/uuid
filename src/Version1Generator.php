@@ -10,7 +10,7 @@ namespace UMA\Uuid;
  *
  * @see https://tools.ietf.org/html/rfc4122#section-4.2
  */
-class Version1Generator implements UuidGenerator
+final readonly class Version1Generator implements UuidGenerator
 {
     /**
      * This is the number of 100-nanosecond intervals elapsed from
@@ -23,19 +23,16 @@ class Version1Generator implements UuidGenerator
      *   var_dump($g->getTimestamp());
      *   var_dump($g->getTimestamp() * -10000000);
      */
-    const GREGORIAN_OFFSET = 122192928000000000;
+    private const GREGORIAN_OFFSET = 122192928000000000;
 
     /**
      * Regular expression for matching MAC addresses.
      *
      * @example 01:23:45:67:89:ab
      */
-    const MAC_ADDR_FORMAT = '/^[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}$/i';
+    private const MAC_ADDR_FORMAT = '/^[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}:[0-9a-f]{2}$/i';
 
-    /**
-     * @var string
-     */
-    private $nodeID;
+    private string $nodeID;
 
     /**
      * @param string $nodeID A valid MAC address.
@@ -55,7 +52,7 @@ class Version1Generator implements UuidGenerator
 
     public function generate(string $name = null): Uuid
     {
-        $t = $this->timestamp();
+        $t = self::timestamp();
 
         $bytes = \pack(
             'NnnnH12',
@@ -81,7 +78,7 @@ class Version1Generator implements UuidGenerator
      *  $maxT = (int)((PHP_INT_MAX - self::GREGORIAN_OFFSET)/10000000);
      *  var_dump(new \DateTimeImmutable("@$maxT UTC"));
      */
-    private function timestamp(): int
+    private static function timestamp(): int
     {
         return self::GREGORIAN_OFFSET + (int)(10000000 * \microtime(true));
     }

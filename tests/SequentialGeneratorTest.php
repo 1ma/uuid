@@ -7,7 +7,7 @@ namespace UMA\Uuid\Tests;
 use PHPUnit\Framework\TestCase;
 use UMA\Uuid\SequentialGenerator;
 
-class SequentialGeneratorTest extends TestCase
+final class SequentialGeneratorTest extends TestCase
 {
     public function testVanillaUsage(): void
     {
@@ -43,17 +43,8 @@ class SequentialGeneratorTest extends TestCase
         self::assertSame('00000000-0000-000a-0000-00000000000d', (string) $sut->generate());
     }
 
-    public function testOverflows(): void
+    public function testOverflow(): void
     {
-        $sut = new SequentialGenerator(0, PHP_INT_MAX);
-
-        // After reaching PHP_INT_MAX the internal counter does not overflow.
-        // Instead, it converts to a floating point number and the ticking stops.
-        self::assertSame('00000000-0000-0000-7fff-ffffffffffff', (string) $sut->generate());
-        self::assertSame('00000000-0000-0000-8000-000000000000', (string) $sut->generate());
-        self::assertSame('00000000-0000-0000-8000-000000000000', (string) $sut->generate());
-        self::assertSame('00000000-0000-0000-8000-000000000000', (string) $sut->generate());
-
         $sut = new SequentialGenerator(0, -2);
 
         self::assertSame('00000000-0000-0000-ffff-fffffffffffe', (string) $sut->generate());

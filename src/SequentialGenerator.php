@@ -14,17 +14,10 @@ namespace UMA\Uuid;
  *
  * Don't use this one in production.
  */
-class SequentialGenerator implements UuidGenerator
+final class SequentialGenerator implements UuidGenerator
 {
-    /**
-     * @var int
-     */
-    private $counter;
-
-    /**
-     * @var string
-     */
-    private $head;
+    private int $counter;
+    private readonly string $head;
 
     /**
      * @example $mark = 15 and $start = 10 will generate:

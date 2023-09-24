@@ -9,7 +9,7 @@ use UMA\Uuid\UuidGenerator;
 use UMA\Uuid\Version1Generator;
 use UMA\Uuid\Version4Generator;
 
-class UuidGeneratorTest extends TestCase
+final class UuidGeneratorTest extends TestCase
 {
     const ITERATIONS = 10000;
 
