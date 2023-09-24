@@ -1,18 +1,26 @@
+name: CI
+
 on: push
 
 jobs:
   run:
-    name: Continuous Integration
+    name: Continuous Integration on PHP ${{ matrix.php-version }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ['8.2', '8.3']
+    env:
+      PHP_CS_FIXER_IGNORE_ENV: 1
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 2
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.2
+          php-version: ${{ matrix.php-version }}
       - run: composer install
       - run: php vendor/bin/php-cs-fixer fix --dry-run -v
       - run: composer test
-      - if: ${{ always() }}
+      - if: ${{ always() && matrix.php-version == '8.2' }}
         run: php vendor/bin/ocular code-coverage:upload --format=php-clover build/coverage.xml
