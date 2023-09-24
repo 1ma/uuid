@@ -10,7 +10,7 @@ namespace UMA\Uuid;
  *
  * @see https://tools.ietf.org/html/rfc4122#section-4.4
  */
-class Version4Generator implements UuidGenerator
+final readonly class Version4Generator implements UuidGenerator
 {
     /**
      * @throws \Exception When PHP cannot gather enough entropy to

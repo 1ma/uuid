@@ -7,7 +7,7 @@ namespace UMA\Uuid\Tests;
 use PHPUnit\Framework\TestCase;
 use UMA\Uuid\CombGenerator;
 
-class CombGeneratorTest extends TestCase
+final class CombGeneratorTest extends TestCase
 {
     public function testInvalidGranularity(): void
     {

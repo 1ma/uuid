@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use UMA\Uuid\Uuid;
 use UMA\Uuid\Version5Generator;
 
-class Version5GeneratorTest extends TestCase
+final class Version5GeneratorTest extends TestCase
 {
     public function testIt(): void
     {

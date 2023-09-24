@@ -10,21 +10,18 @@ namespace UMA\Uuid;
  *
  * @see https://tools.ietf.org/html/rfc4122#section-4.3
  */
-class Version5Generator implements UuidGenerator
+final readonly class Version5Generator implements UuidGenerator
 {
     /**
      * These are a few well known Uuids listed in Appendix C
      * of RFC 4122 to be used as namespace identifiers.
      */
-    const NS_DNS = '6ba7b810-9dad-11d1-80b4-00c04fd430c8';
-    const NS_URL = '6ba7b811-9dad-11d1-80b4-00c04fd430c8';
-    const NS_OID = '6ba7b812-9dad-11d1-80b4-00c04fd430c8';
-    const NS_X500 = '6ba7b814-9dad-11d1-80b4-00c04fd430c8';
+    public const NS_DNS = '6ba7b810-9dad-11d1-80b4-00c04fd430c8';
+    public const NS_URL = '6ba7b811-9dad-11d1-80b4-00c04fd430c8';
+    public const NS_OID = '6ba7b812-9dad-11d1-80b4-00c04fd430c8';
+    public const NS_X500 = '6ba7b814-9dad-11d1-80b4-00c04fd430c8';
 
-    /**
-     * @var string
-     */
-    private $nsBytes;
+    private string $nsBytes;
 
     public function __construct(Uuid $namespace)
     {

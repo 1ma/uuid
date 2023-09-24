@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use UMA\Uuid\Uuid;
 use UMA\Uuid\Version1Generator;
 
-class Version1GeneratorTest extends TestCase
+final class Version1GeneratorTest extends TestCase
 {
     public function testValidMacAddress(): void
     {

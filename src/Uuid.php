@@ -7,28 +7,26 @@ namespace UMA\Uuid;
 /**
  * Value object that encapsulates the 128 bits of an UUID.
  */
-class Uuid
+final readonly class Uuid
 {
     /**
      * The 'Nil' UUID described in section 4.1.7 of RFC 4122.
      */
-    const NIL = '00000000-0000-0000-0000-000000000000';
+    private const NIL = '00000000-0000-0000-0000-000000000000';
 
     /**
      * The regular expression of what the value object considers to be a valid UUID in textual form.
      *
      * It does not try to enforce any particular version.
      */
-    const TEXTUAL_FORMAT = '/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i';
+    private const TEXTUAL_FORMAT = '/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i';
 
     /**
      * Textual representation of the UUID byte sequence.
      *
      * @example '96aaab69-7b76-4461-b008-cbb9cfcb6fdf'
-     *
-     * @var string
      */
-    private $uuid;
+    private string $uuid;
 
     /**
      * @throws \InvalidArgumentException If $text is not a valid Uuid in string format.

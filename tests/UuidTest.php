@@ -8,11 +8,11 @@ use PHPUnit\Framework\TestCase;
 use UMA\Uuid\Uuid;
 use UMA\Uuid\Version4Generator;
 
-class UuidTest extends TestCase
+final class UuidTest extends TestCase
 {
     public function testNilFactory(): void
     {
-        self::assertSame(Uuid::NIL, Uuid::nil()->asString());
+        self::assertSame('00000000-0000-0000-0000-000000000000', Uuid::nil()->asString());
     }
 
     public function testAlias(): void
