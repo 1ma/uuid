@@ -6,9 +6,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
       - uses: shivammathur/setup-php@v2
         with:
           php-version: 8.2
       - run: composer install
       - run: php vendor/bin/php-cs-fixer fix --dry-run -v
       - run: composer test
+      - if: ${{ always() }}
+        run: php vendor/bin/ocular code-coverage:upload --format=php-clover build/coverage.xml
