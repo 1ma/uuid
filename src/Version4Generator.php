@@ -13,13 +13,13 @@ namespace UMA\Uuid;
 final readonly class Version4Generator implements UuidGenerator
 {
     /**
-     * @throws \Exception When PHP cannot gather enough entropy to
-     *                    pull 16 random bytes for the next Uuid.
+     * @throws \Exception when PHP cannot gather enough entropy to
+     *                    pull 16 random bytes for the next Uuid
      */
     public function generate(string $name = null): Uuid
     {
         // Set all the other bits to randomly chosen values.
-        $bytes = \unpack('C16', \random_bytes(16));
+        $bytes = unpack('C16', random_bytes(16));
 
         // Set the four most significant bits (bits 12 through 15) of
         // the time_hi_and_version field to the 4-bit version number from
@@ -32,6 +32,6 @@ final readonly class Version4Generator implements UuidGenerator
         $bytes[9] &= 0b10111111;
         $bytes[9] |= 0b10000000;
 
-        return Uuid::fromBytes(\pack('C16', ...$bytes));
+        return Uuid::fromBytes(pack('C16', ...$bytes));
     }
 }

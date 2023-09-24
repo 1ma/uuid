@@ -17,14 +17,14 @@ final class UuidTest extends TestCase
 
     public function testAlias(): void
     {
-        $uuid = (new Version4Generator)->generate();
+        $uuid = (new Version4Generator())->generate();
 
         self::assertSame($uuid->asString(), (string) $uuid);
     }
 
     public function testEquivalence(): void
     {
-        $uuid1 = (new Version4Generator)->generate();
+        $uuid1 = (new Version4Generator())->generate();
         $uuid2 = Uuid::fromString($uuid1->asString());
 
         self::assertEquals($uuid1, $uuid2);

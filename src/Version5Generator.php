@@ -35,7 +35,7 @@ final readonly class Version5Generator implements UuidGenerator
         }
 
         // Use the 16 most significant octets of the hash as the basis for the new Uuid.
-        $bytes = \unpack('C16', \sha1($this->nsBytes . $name, true));
+        $bytes = unpack('C16', sha1($this->nsBytes.$name, true));
 
         // Set the four most significant bits (bits 12 through 15) of the
         // time_hi_and_version field to the appropriate 4-bit version number
@@ -48,6 +48,6 @@ final readonly class Version5Generator implements UuidGenerator
         $bytes[9] &= 0b10111111;
         $bytes[9] |= 0b10000000;
 
-        return Uuid::fromBytes(\pack('C16', ...$bytes));
+        return Uuid::fromBytes(pack('C16', ...$bytes));
     }
 }

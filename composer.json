@@ -7,6 +7,7 @@
         "php-64bit": "^8.2.0"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.28",
         "phpbench/phpbench": "^1.0",
         "phpunit/phpunit": "^10.3"
     },
@@ -22,6 +23,7 @@
     },
     "scripts": {
         "bench": "@php vendor/bin/phpbench run --report=env --report=aggregate",
+        "lint": "@php vendor/bin/php-cs-fixer fix -v",
         "test" : "@php vendor/bin/phpunit"
     },
     "config": {
