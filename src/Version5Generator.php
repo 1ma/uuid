@@ -28,7 +28,7 @@ final readonly class Version5Generator implements UuidGenerator
         $this->nsBytes = $namespace->asBytes();
     }
 
-    public function generate(string $name = null): Uuid
+    public function generate(?string $name = null): Uuid
     {
         if (null === $name) {
             throw new \InvalidArgumentException('$name is mandatory. Got: NULL');

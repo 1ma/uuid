@@ -30,7 +30,7 @@ final readonly class CombGenerator implements UuidGenerator
     /**
      * @throws \Exception if $v4->generate() fails due to exhausted entropy
      */
-    public function generate(string $name = null): Uuid
+    public function generate(?string $name = null): Uuid
     {
         $head = self::procrust($this->timestamp());
         $tail = substr($this->v4->generate()->asBytes(), -10);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UMA\Uuid\Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use UMA\Uuid\CombGenerator;
 
@@ -17,9 +18,7 @@ final class CombGeneratorTest extends TestCase
         new CombGenerator(10);
     }
 
-    /**
-     * @dataProvider overflowDatesProvider
-     */
+    #[DataProvider('overflowDatesProvider')]
     public function testOverflowDates(int $granularity, string $expectedOverflowDate): void
     {
         $overflowDate = (new CombGenerator($granularity))->getOverflowDate();

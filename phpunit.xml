@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.3/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd"
          beStrictAboutOutputDuringTests="true"
          bootstrap="vendor/autoload.php"
          cacheResult="false"
@@ -8,23 +8,21 @@
          failOnRisky="true"
          failOnWarning="true"
 >
-    <testsuites>
-        <testsuite name="uma/uuid test suite">
-            <directory>tests</directory>
-        </testsuite>
-    </testsuites>
-
-    <source restrictDeprecations="true" restrictNotices="true" restrictWarnings="true">
-        <include>
-            <directory>src</directory>
-        </include>
-    </source>
-
-    <coverage>
-        <report>
-            <clover outputFile="build/coverage.xml"/>
-            <html outputDirectory="build/coverage"/>
-            <text outputFile="php://stdout" showOnlySummary="true"/>
-        </report>
-    </coverage>
+  <testsuites>
+    <testsuite name="uma/uuid test suite">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+  <source ignoreIndirectDeprecations="true" restrictNotices="true" restrictWarnings="true">
+    <include>
+      <directory>src</directory>
+    </include>
+  </source>
+  <coverage>
+    <report>
+      <clover outputFile="build/coverage.xml"/>
+      <html outputDirectory="build/coverage"/>
+      <text outputFile="php://stdout" showOnlySummary="true"/>
+    </report>
+  </coverage>
 </phpunit>

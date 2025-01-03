@@ -15,5 +15,5 @@ interface UuidGenerator
      * The optional $name parameter is required by Name-Based Uuid
      * generators (e.g. Version 5). Other generators simply ignore it.
      */
-    public function generate(string $name = null): Uuid;
+    public function generate(?string $name = null): Uuid;
 }

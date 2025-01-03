@@ -16,7 +16,7 @@ final readonly class Version4Generator implements UuidGenerator
      * @throws \Exception when PHP cannot gather enough entropy to
      *                    pull 16 random bytes for the next Uuid
      */
-    public function generate(string $name = null): Uuid
+    public function generate(?string $name = null): Uuid
     {
         // Set all the other bits to randomly chosen values.
         $bytes = unpack('C16', random_bytes(16));

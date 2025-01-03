@@ -32,7 +32,7 @@ final class SequentialGenerator implements UuidGenerator
         $this->counter = $start;
     }
 
-    public function generate(string $name = null): Uuid
+    public function generate(?string $name = null): Uuid
     {
         return Uuid::fromBytes($this->head.pack('J', $this->counter++));
     }

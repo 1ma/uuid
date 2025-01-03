@@ -50,7 +50,7 @@ final readonly class Version1Generator implements UuidGenerator
         $this->nodeID = str_replace(':', '', $nodeID);
     }
 
-    public function generate(string $name = null): Uuid
+    public function generate(?string $name = null): Uuid
     {
         $t = self::timestamp();
 
