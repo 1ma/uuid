@@ -3,6 +3,8 @@
 [![CI](https://github.com/1ma/uuid/actions/workflows/ci.yml/badge.svg)](https://github.com/1ma/uuid/actions/workflows/ci.yml)
 [![Code Coverage](https://scrutinizer-ci.com/g/1ma/uuid/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/1ma/uuid/?branch=master)
 
+Unmaintained, do not use.
+
 A SOLID and lightweight implementation of the UUID spec for PHP +8.2
 
 ![project overview](doc/class-diagram.png)

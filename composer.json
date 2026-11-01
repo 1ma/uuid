@@ -3,6 +3,7 @@
     "description": "Lightweight UUID library",
     "type": "library",
     "license": "MIT",
+    "abandoned": "symfony/uid",
     "require": {
         "php-64bit": "~8.2.0 || ~8.3.0 || ~8.4.0"
     },
